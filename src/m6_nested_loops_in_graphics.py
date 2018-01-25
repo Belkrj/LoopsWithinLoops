@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Robert Belk.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    #run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -55,6 +55,23 @@ def run_test_draw_L():
 
 
 def draw_L(window, circle, r, c):
+    for k in range(r + 3):
+        for j in range(3):
+            center = rg.Point(circle.center.x + 2 * circle.radius * j, circle.center.y + 2 * circle.radius * k)
+            n_cir = rg.Circle(center, circle.radius)
+            n_cir.fill_color = circle.fill_color
+            n_cir.attach_to(window)
+            window.render(.1)
+    for k in range(3):
+        for j in range(c + 3):
+            center2 = rg.Point(n_cir.center.x + 2 * circle.radius * j,
+                               n_cir.center.y + 2 * circle.radius * k - 4 * circle.radius)
+            nc2 = rg.Circle(center2, circle.radius)
+            nc2.fill_color = circle.fill_color
+            nc2.attach_to(window)
+            window.render(.1)
+
+
     """
     See   L.pdf   in this project for pictures that may
     help you better understand the following specification:
@@ -80,7 +97,7 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
@@ -103,6 +120,15 @@ def run_test_draw_wall_on_right():
 
 
 def draw_wall_on_right(rectangle, n, window):
+    wid = rectangle.get_width()
+    hght = rectangle.get_height()
+    corn_1 = rectangle.get_upper_left_corner()
+    corn_2 = rectangle.get_lower_right_corner()
+    for k in range(n):
+        for j in range(k + 1):
+            rec = rg.Rectangle(rg.Point((corn_1.x - wid * j), corn_1.y + hght * k), rg.Point(corn_2.x - wid * j, corn_2.y + hght * k))
+            rec.attach_to(window)
+            window.render(.1)
     """
     See   Walls.pdf   in this project for pictures that may
     help you better understand the following specification:
@@ -121,7 +147,7 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
